@@ -1,0 +1,16 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "test",
+            "database": "backend_of_bank",
+            "username": "admin",
+            "password": "admin"
+        }
+    ]
+}
