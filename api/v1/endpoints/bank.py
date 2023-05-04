@@ -1,10 +1,9 @@
 from typing import List
-from fastapi import APIRouter, status, Depends, HTTPException, Response
+from fastapi import APIRouter, status, Depends, HTTPException
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from models.bank_statement_model import BankStatementModel
 from models.transfer_model import TransferModel
 
 from schemas.bank_statement_schema import BankStatementSchema
@@ -22,9 +21,6 @@ from core.deps import get_session
 router = APIRouter()
 
 
-router = APIRouter()
-
-
 # POST transfer
 @router.post(
     '/account/transfer',
@@ -34,11 +30,11 @@ router = APIRouter()
 async def post_transfer(
     transfer: TransferSchema, db: AsyncSession = Depends(get_session)
 ):
-    new_transfer = TransferSchema(
+
+    new_transfer = TransferModel(
         friend_id=transfer.friend_id,
-        user_id=transfer.user_id,
-        value=transfer.value,
-        from_card=transfer.billing_card.card_id,
+        total_to_transfer=transfer.total_to_transfer,
+        billing_card=transfer.billing_card
     )
     db.add(new_transfer)
     await db.commit()
@@ -46,17 +42,17 @@ async def post_transfer(
 
 
 # GET Bank Statements
-@router.get('/account/bank-statement', response_model=BankStatementSchema)
+@router.get('/account/bank-statement', response_model=TransferSchema)
 async def get_bank_statement(db: AsyncSession = Depends(get_session)):
     async with db as session:
-        query = select(BankStatementModel)
+        query = select(TransferModel)
         result = await session.execute(query)
-        bank_statement: List[BankStatementModel] = result.scalars().all()
+        bank_statement: List[TransferModel] = result.scalars().all()
 
         return bank_statement
 
 
-# GET GET Bank Statements by id
+# GET Bank Statements by id
 @router.get(
     '/account/bank-statement/{usertId}',
     response_model=BankStatementSchema,
@@ -66,8 +62,8 @@ async def get_bank_statement_by_id(
     user_id: str, db: AsyncSession = Depends(get_session)
 ):
     async with db as session:
-        query = select(BankStatementModel).filter(
-            BankStatementModel.id == user_id
+        query = select(TransferModel).filter(
+            TransferModel.id == user_id
         )
         result = await session.execute(query)
 

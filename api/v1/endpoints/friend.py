@@ -20,7 +20,7 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED,
     response_model=FriendSchema,
 )
-async def post_person(
+async def post_friend(
     person: FriendSchema, db: AsyncSession = Depends(get_session)
 ):
     new_friend = FriendsModel(
