@@ -2,9 +2,11 @@ from typing import Optional
 
 from pydantic import BaseModel as SCBaseModel
 
+
 class BillingCardSchema(SCBaseModel):
     id: Optional[int]
     card_id: str
+
 
 class TransferSchema(SCBaseModel):
     id: Optional[int]
