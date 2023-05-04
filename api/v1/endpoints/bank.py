@@ -30,8 +30,8 @@ router = APIRouter()
 async def post_transfer(
     transfer: TransferSchema, db: AsyncSession = Depends(get_session)
 ):
-
     new_transfer = TransferModel(
+        user_id=transfer.user_id,
         friend_id=transfer.friend_id,
         total_to_transfer=transfer.total_to_transfer,
         billing_card=transfer.billing_card
@@ -41,21 +41,27 @@ async def post_transfer(
     return new_transfer
 
 
-# GET Bank Statements
-@router.get('/account/bank-statement', response_model=TransferSchema)
+@router.get('/account/bank-statement', response_model=List[TransferSchema])
 async def get_bank_statement(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(TransferModel)
         result = await session.execute(query)
         bank_statement: List[TransferModel] = result.scalars().all()
 
-        return bank_statement
+        # Map TransferModel objects to TransferSchema objects
+        return [TransferSchema(
+            id=transfer.id,
+            user_id=transfer.user_id,
+            friend_id=transfer.friend_id,
+            total_to_transfer=transfer.total_to_transfer,
+            billing_card=transfer.billing_card
+        ) for transfer in bank_statement]
 
 
 # GET Bank Statements by id
 @router.get(
     '/account/bank-statement/{usertId}',
-    response_model=BankStatementSchema,
+    response_model=TransferSchema,
     status_code=status.HTTP_200_OK,
 )
 async def get_bank_statement_by_id(
@@ -63,14 +69,14 @@ async def get_bank_statement_by_id(
 ):
     async with db as session:
         query = select(TransferModel).filter(
-            TransferModel.id == user_id
+            TransferModel.user_id == user_id
         )
         result = await session.execute(query)
 
-        bank_statement = result.scalar_one_os_none()
+        transfer = result.scalar_one_or_none()
 
-        if bank_statement:
-            return bank_statement
+        if transfer:
+            return transfer
 
         raise HTTPException(
             detail='Bank statement not found',
