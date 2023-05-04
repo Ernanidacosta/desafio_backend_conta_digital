@@ -1,5 +1,5 @@
 from pydantic import BaseSettings
-from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.declarative import declarative_base
 
 
 class Settings(BaseSettings):
@@ -11,10 +11,9 @@ class Settings(BaseSettings):
     BD_URL: str = (
         'postgresql+asyncpg://admin:admin@localhost:5432/backend_of_bank'
     )
-    DBBaseModel = declarative_base()
-
+    
     class Config:
         case_sensitive = True
 
 
-settings = Settings()
+settings: Settings = Settings()

@@ -1,16 +1,15 @@
-from core.configs import settings
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
-from sqlalchemy import Column, Integer, String
 
-
-class CardModel(settings.DBBaseModel):
+class CardModel(SQLModel, table=True):
     __tablename__ = 'cards'
 
-    id: int = Column(Integer, primary_key=True, autoincrement=True)
-    card_id: str = Column(String)
-    title: str = Column(String)
-    pan: str = Column(String)
-    expiry_mm: str = Column(String)
-    expiry_yyyy: str = Column(String)
-    security_code: str = Column(String)
-    date: str = Column(String)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    card_id: str
+    title: str
+    pan: str
+    expiry_mm: str
+    expiry_yyyy: str
+    security_code: str
+    date: str
