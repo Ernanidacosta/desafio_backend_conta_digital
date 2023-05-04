@@ -1,14 +1,14 @@
-from sqlalchemy import Column, Integer, String
-from core.configs import settings
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 
-class PersonModel(settings.DBBaseModel):
+class PersonModel(SQLModel, table=True):
     __tablename__ = 'persons'
 
-    id: int = Column(Integer, primary_key=True, autoincrement=True)
-    first_name: str = Column(String(100))
-    last_name: str = Column(String(100))
-    birthday: str = Column(String(10))
-    password: str = Column(String(50))
-    username: str = Column(String(100))
-    user_id: str = Column(String(100))
+    id: Optional[int] = Field(default=None, primary_key=True)
+    first_name: str
+    last_name: str
+    birthday: str
+    password: str
+    username: str
+    user_id: str

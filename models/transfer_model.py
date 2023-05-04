@@ -1,14 +1,12 @@
-from sqlalchemy import Column, Integer, String
-from core.configs import settings
+from typing import Optional
+from sqlmodel import Field, SQLModel
 
 
-
-class TransferModel(settings.DBBaseModel):
+class TransferModel(SQLModel, table=True):
     __tablename__ = 'transfer'
 
-    id = Column(Integer, primary_key=True)
-    user_id = Column(String)
-    friend_id = Column(String)
-    total_to_transfer = Column(Integer)
-    billing_card = Column(String)
-
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: str
+    friend_id: str
+    total_to_transfer: int
+    billing_card: str

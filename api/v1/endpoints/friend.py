@@ -1,12 +1,11 @@
 from typing import List
 
-from fastapi import APIRouter, status, Depends, HTTPException, Response
+from fastapi import APIRouter, status, Depends
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from models.friends_model import FriendsModel
-from schemas.friend_schema import FriendSchema
 
 from core.deps import get_session
 
@@ -18,10 +17,10 @@ router = APIRouter()
 @router.post(
     '/account/friend',
     status_code=status.HTTP_201_CREATED,
-    response_model=FriendSchema,
+    response_model=FriendsModel,
 )
 async def post_friend(
-    person: FriendSchema, db: AsyncSession = Depends(get_session)
+    person: FriendsModel, db: AsyncSession = Depends(get_session)
 ):
     new_friend = FriendsModel(
         first_name=person.first_name,
@@ -36,7 +35,7 @@ async def post_friend(
 
 
 # GET Friends
-@router.get('/account/friends', response_model=List[FriendSchema])
+@router.get('/account/friends', response_model=List[FriendsModel])
 async def get_friends(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(FriendsModel)
