@@ -16,7 +16,7 @@ router = APIRouter()
 
 # POST Friend
 @router.post(
-    '/account/friend',
+    '/friend',
     status_code=status.HTTP_201_CREATED,
     response_model=FriendSchema,
 )
@@ -36,7 +36,7 @@ async def post_friend(
 
 
 # GET Friends
-@router.get('/account/friends', response_model=List[FriendSchema])
+@router.get('/friends', response_model=List[FriendSchema])
 async def get_friends(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(FriendsModel)

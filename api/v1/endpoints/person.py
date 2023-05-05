@@ -14,9 +14,20 @@ from schemas.person_schema import PersonSchema
 router = APIRouter()
 
 
+# GET Person
+@router.get('/pearsons', response_model=List[PersonSchema])
+async def get_pearson(db: AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(PersonModel)
+        result = await session.execute(query)
+        persons: List[PersonModel] = result.scalars().all()
+
+        return persons
+
+
 # POST Person
 @router.post(
-    '/account/person',
+    '/person',
     status_code=status.HTTP_201_CREATED,
     response_model=PersonSchema,
 )

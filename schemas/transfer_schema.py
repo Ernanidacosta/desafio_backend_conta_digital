@@ -9,3 +9,6 @@ class TransferSchema(SCBaseModel):
     friend_id: str
     total_to_transfer: int
     billing_card: str
+
+    class Config:
+        orm_mode = True

@@ -8,7 +8,6 @@ class BankStatementSchema(SCBaseModel):
     user_id: str
     friend_id: str
     value: int
-    date: str
     from_card: str
 
     class Config:
