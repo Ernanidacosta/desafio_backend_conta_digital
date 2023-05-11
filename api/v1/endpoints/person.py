@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 # GET Person
-@router.get('/pearsons', response_model=List[PersonSchema])
+@router.get('/persons', response_model=List[PersonSchema])
 async def get_pearson(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(PersonModel)
