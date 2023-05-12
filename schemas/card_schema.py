@@ -5,6 +5,7 @@ from pydantic import BaseModel as SCBaseModel
 
 class CardSchema(SCBaseModel):
     id: Optional[int]
+    card_id: str
     title: str
     pan: str
     expiry_mm: str

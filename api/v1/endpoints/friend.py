@@ -1,14 +1,9 @@
 from typing import List
-
 from fastapi import APIRouter, status, Depends, HTTPException, Response
-
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
 from models.friends_model import FriendsModel
-
 from schemas.friend_schema import FriendSchema
-
 from core.deps import get_session
 
 
