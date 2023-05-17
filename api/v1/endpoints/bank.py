@@ -2,7 +2,7 @@ from typing import List
 from fastapi import APIRouter, status, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from models.transfer_model import TransferModel
+from models.transfer_model import TransferModel, BillingCardModel
 from schemas.transfer_schema import TransferSchema
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -21,11 +21,17 @@ router = APIRouter()
 async def post_transfer(
     transfer: TransferSchema, db: AsyncSession = Depends(get_session)
 ):
+    billing_card_data = transfer.billing_card
+
+    billing_card = BillingCardModel(card_id=billing_card_data.card_id)
+    db.add(billing_card)
+    await db.flush()
+
     new_transfer = TransferModel(
         user_id=transfer.user_id,
         friend_id=transfer.friend_id,
         total_to_transfer=transfer.total_to_transfer,
-        billing_card=transfer.billing_card
+        billing_card=billing_card
     )
     db.add(new_transfer)
     await db.commit()
