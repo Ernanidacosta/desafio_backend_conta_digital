@@ -1,14 +1,7 @@
-from typing import List
-
-from fastapi import APIRouter, status, Depends, HTTPException, Response
-
+from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
 from core.deps import get_session
-
-
 from models.person_model import PersonModel
-
 from schemas.person_schema import PersonSchema
 
 router = APIRouter()

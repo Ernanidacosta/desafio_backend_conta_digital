@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-from api.v1.endpoints import bank, friend, person
+from api.v1.endpoints import bank, friend, person, card
 
 api_router = APIRouter()
-api_router.include_router(person.router, prefix='/person')
-api_router.include_router(bank.router, prefix='/bank')
-api_router.include_router(friend.router, prefix='/friend')
+api_router.include_router(person.router, prefix='/account')
+api_router.include_router(bank.router, prefix='/account')
+api_router.include_router(friend.router, prefix='/account')
+api_router.include_router(card.router, prefix='/account')
