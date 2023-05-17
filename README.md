@@ -12,7 +12,7 @@ Esse método deve receber um novo usuário e inseri-lo em um banco de dados para
    "birthday": "1991-09-91",
    "password": "*****",
    "username": "joao_das_neves",
-   "user_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+   "user_id": "70c881d4a26984ddce"
 }
 ```
 | Campo       | Tipo   |
@@ -32,21 +32,21 @@ Esse método da API deve retornar o seguinte JSON com os amigos do usuário
    "last_name": "das Neves",
    "birthday": "1991-09-91",
    "username": "joao_das_neves",
-   "user_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+   "user_id": "70c881d4a26984ddce"
   },
   {
    "first_name":"João",
    "last_name": "das Neves",
    "birthday": "1991-09-91",
    "username": "joao_das_neves",
-   "user_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+   "user_id": "70c881d4a26984ddce"
   },
   {
    "first_name":"João",
    "last_name": "das Neves",
    "birthday": "1991-09-91",
    "username": "joao_das_neves",
-   "user_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+   "user_id": "70c881d4a26984ddce"
   }
 ]
 ```
@@ -62,7 +62,7 @@ Esse método da API deve retornar o seguinte JSON com os amigos do usuário
 Esse método deve receber um cartão novo e inseri-lo em um banco de dados para ser consumido pela própria API.
 ```json
 {
-   "card_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+   "card_id": "70c881d4a26984ddce"
    "title": "Cartão 1",
    "pan": "5527952393064634",
    "expiry_mm": "03",
@@ -130,10 +130,10 @@ Para isso, você precisará fazer o método `transfer` na sua API.
 Esse método irá receber os dados da compra, junto com os dados do usuário.
 ```json
 {
-   "friend_id": "70c881d4a26984ddce795f6f71817c9cf4480e79",
+   "friend_id": "70c881d4a26984ddce",
    "total_to_transfer": 100,
    "billing_card": {
-      "card_id": "70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "card_id": "70c881d4a26984ddce"
    }
 }
 
@@ -159,25 +159,25 @@ Esse método deve retornar todas as transferencias realizadas entre os amigos na
 ```json
 [
    {
-      "user_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
-      "friend_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
+      "user_id":"70c881d4a26984ddce",
+      "friend_id":"70c881d4a26984ddce",
       "value":1234,
       "date":"19/08/2016",
-      "from_card":"70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "from_card":"70c881d4a26984ddce"
    },
    {
-      "user_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
-      "friend_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
+      "user_id":"70c881d4a26984ddce",
+      "friend_id":"70c881d4a26984ddce",
       "value":1234,
       "date":"19/08/2016",
-      "from_card":"70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "from_card":"70c881d4a26984ddce"
    },
    {
-      "user_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
-      "friend_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
+      "user_id":"70c881d4a26984ddce",
+      "friend_id":"70c881d4a26984ddce",
       "value":1234,
       "date":"19/08/2016",
-      "from_card":"70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "from_card":"70c881d4a26984ddce"
    },
 ]
 ```
@@ -194,18 +194,18 @@ Esse método deve retornar todos as transferencias realizadas na API por um usu�
 ```json
 [
    {
-      "user_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
-      "friend_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
+      "user_id":"70c881d4a26984ddce",
+      "friend_id":"70c881d4a26984ddce",
       "value":1234,
       "date":"19/08/2016",
-      "from_card":"70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "from_card":"70c881d4a26984ddce"
    },
    {
-      "user_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
-      "friend_id":"70c881d4a26984ddce795f6f71817c9cf4480e79",
+      "user_id":"70c881d4a26984ddce",
+      "friend_id":"70c881d4a26984ddce",
       "value":1234,
       "date":"19/08/2016",
-      "from_card":"70c881d4a26984ddce795f6f71817c9cf4480e79"
+      "from_card":"70c881d4a26984ddce"
    },
 ]
 ```
