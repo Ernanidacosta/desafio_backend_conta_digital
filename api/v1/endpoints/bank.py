@@ -45,14 +45,7 @@ async def get_bank_statement(db: AsyncSession = Depends(get_session)):
         result = await session.execute(query)
         bank_statement: List[TransferModel] = result.scalars().all()
 
-        # Map TransferModel objects to TransferSchema objects
-        return [TransferSchema(
-            id=transfer.id,
-            user_id=transfer.user_id,
-            friend_id=transfer.friend_id,
-            total_to_transfer=transfer.total_to_transfer,
-            billing_card=transfer.billing_card
-        ) for transfer in bank_statement]
+        return bank_statement
 
 
 # GET Bank Statements by id
