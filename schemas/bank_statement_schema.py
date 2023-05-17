@@ -10,6 +10,6 @@ class BankStatementSchema(SCBaseModel):
     value: int
     date: str
     from_card: str
-    
+
     class Config:
         orm_mode = True
