@@ -9,7 +9,7 @@ router = APIRouter()
 
 # POST Person
 @router.post(
-    '/account/person',
+    '/person',
     status_code=status.HTTP_201_CREATED,
     response_model=PersonSchema,
 )
