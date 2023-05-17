@@ -23,7 +23,7 @@ router = APIRouter()
 
 # POST transfer
 @router.post(
-    '/account/transfer',
+    '/transfer',
     status_code=status.HTTP_201_CREATED,
     response_model=TransferSchema,
 )
@@ -41,7 +41,7 @@ async def post_transfer(
     return new_transfer
 
 
-@router.get('/account/bank-statement', response_model=List[TransferSchema])
+@router.get('/bank-statement', response_model=List[TransferSchema])
 async def get_bank_statement(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(TransferModel)
@@ -60,7 +60,7 @@ async def get_bank_statement(db: AsyncSession = Depends(get_session)):
 
 # GET Bank Statements by id
 @router.get(
-    '/account/bank-statement/{usertId}',
+    '/bank-statement/{usertId}',
     response_model=TransferSchema,
     status_code=status.HTTP_200_OK,
 )
@@ -86,7 +86,7 @@ async def get_bank_statement_by_id(
 
 # POST Card
 @router.post(
-    '/account/card',
+    '/card',
     status_code=status.HTTP_201_CREATED,
     response_model=CardSchema,
 )
@@ -108,7 +108,7 @@ async def card_create(
 
 
 # GET Cards
-@router.get('/account/cards', response_model=List[CardSchema])
+@router.get('/cards', response_model=List[CardSchema])
 async def get_cards(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(CardModel)
