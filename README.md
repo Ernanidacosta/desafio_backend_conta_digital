@@ -1,6 +1,6 @@
 # Desafio Backend
 
-O desafio consiste em criar uma API REST para uma Conta Digital, onde o usuário poderá realizar pagamentos para seus amigos e adicionar cartões de crétido, que será consumida por um aplicativo (Android e iOS). Onde o usuário irá cadastrar/listar/editar/apagar um cartão quando desejar e transferir e listar o extrato de pagamentos.
+O desafio consiste em criar uma API REST para uma Conta Digital, onde o usuário poderá realizar pagamentos para seus amigos e adicionar cartões de crédito. Onde o usuário irá cadastrar/listar/editar/apagar um cartão quando desejar e transferir e listar o extrato de pagamentos.
 
 
 ### POST `/account/person`
