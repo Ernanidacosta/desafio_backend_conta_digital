@@ -11,6 +11,7 @@ class TransferModel(settings.DBBaseModel):
     friend_id = Column(String)
     total_to_transfer = Column(Integer)
     billing_card_id = Column(Integer, ForeignKey('billing_card.id'))
+    
     billing_card = relationship("BillingCardModel", back_populates="transfer")
 
 

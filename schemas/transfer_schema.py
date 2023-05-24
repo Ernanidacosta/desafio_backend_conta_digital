@@ -1,8 +1,9 @@
-from typing import Optional, List
+from typing import Optional
 from pydantic import BaseModel
 
 
 class BillingCardSchema(BaseModel):
+    id: Optional[int]
     card_id: str
 
     class Config:
@@ -10,6 +11,7 @@ class BillingCardSchema(BaseModel):
 
 
 class TransferSchema(BaseModel):
+    id: Optional[int]
     user_id: str
     friend_id: str
     total_to_transfer: int
