@@ -1,16 +1,28 @@
 version: '3.8'
 services:
   postgres_db:
-    image: postgres:alpine
+    image: postgres:15-alpine
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - backend_of_bank:/var/lib/postgresql/data
-      - ./init-script.sh:/docker-entrypoint-initdb.d/init-script.sh
+      - ./start.sh:/docker-entrypoint-initdb.d/start.sh
     ports:
       - "5432:5432"
     restart: unless-stopped
-volumes:
-  backend_of_bank:
+  
+  api:
+    container_name: api
+    build: .
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres_db
+    volumes:
+      - .:/app
+
+networks:
+  default:
+       name: api_network
