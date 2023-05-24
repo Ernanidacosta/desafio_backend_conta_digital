@@ -6,6 +6,7 @@ from models.transfer_model import TransferModel, BillingCardModel
 from schemas.transfer_schema import TransferSchema
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
 from core.deps import get_session
 
 
@@ -31,7 +32,7 @@ async def post_transfer(
         user_id=transfer.user_id,
         friend_id=transfer.friend_id,
         total_to_transfer=transfer.total_to_transfer,
-        billing_card=billing_card
+        billing_card=billing_card,
     )
     db.add(new_transfer)
     await db.commit()
@@ -41,7 +42,9 @@ async def post_transfer(
 @router.get('/bank-statements', response_model=List[TransferSchema])
 async def get_bank_statement(db: AsyncSession = Depends(get_session)):
     async with db as session:
-        query = select(TransferModel)
+        query = select(TransferModel).options(
+            selectinload(TransferModel.billing_card)
+        )
         result = await session.execute(query)
         bank_statement: List[TransferModel] = result.scalars().all()
 
@@ -58,9 +61,7 @@ async def get_bank_statement_by_id(
     user_id: str, db: AsyncSession = Depends(get_session)
 ):
     async with db as session:
-        query = select(TransferModel).filter(
-            TransferModel.user_id == user_id
-        )
+        query = select(TransferModel).filter(TransferModel.user_id == user_id)
         result = await session.execute(query)
 
         transfer = result.scalar_one_or_none()

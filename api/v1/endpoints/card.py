@@ -11,8 +11,12 @@ router = APIRouter()
 
 
 # POST Card
-@router.post('/card', status_code=status.HTTP_201_CREATED, response_model=CardSchema)
-async def card_create(card: CardSchema, db: AsyncSession = Depends(get_session)):
+@router.post(
+    '/card', status_code=status.HTTP_201_CREATED, response_model=CardSchema
+)
+async def card_create(
+    card: CardSchema, db: AsyncSession = Depends(get_session)
+):
     new_card = CardModel(
         card_id=card.card_id,
         title=card.title,

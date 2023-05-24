@@ -8,9 +8,7 @@ class Settings(BaseSettings):
     """
 
     API_V1_STR: str = '/api/v1'
-    BD_URL: str = (
-        'postgresql+asyncpg://admin:admin@localhost:5432/digital_account_database'
-    )
+    BD_URL: str = 'postgresql+asyncpg://admin:admin@localhost:5432/digital_account_database'
     DBBaseModel = declarative_base()
 
     class Config:
