@@ -53,15 +53,20 @@ async def get_bank_statement(db: AsyncSession = Depends(get_session)):
 
 # GET Bank Statements by id
 @router.get(
-    '/bank-statement/{usertId}',
+    '/bank-statement/{transferId}',
     response_model=TransferSchema,
     status_code=status.HTTP_200_OK,
 )
 async def get_bank_statement_by_id(
-    user_id: str, db: AsyncSession = Depends(get_session)
+    transferId: int, db: AsyncSession = Depends(get_session)
 ):
     async with db as session:
-        query = select(TransferModel).filter(TransferModel.user_id == user_id)
+        query = (
+            select(TransferModel)
+            .join(TransferModel.billing_card)
+            .filter(TransferModel.id == transferId)
+            .options(selectinload(TransferModel.billing_card))
+        )
         result = await session.execute(query)
 
         transfer = result.scalar_one_or_none()
