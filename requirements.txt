@@ -5,3 +5,4 @@ pydantic==1.10.7
 SQLAlchemy==1.4.36
 starlette==0.17.1
 uvicorn==0.17.6
+python-decouple==3.7
