@@ -9,8 +9,7 @@ class Settings(BaseSettings):
     """
 
     API_V1_STR: str = '/api/v1'
-    BD_URL: str = config('LOCAL_DATABASE_URL')
-    # BD_URL: str = config('REMOTE_DATABASE_URL')
+    BD_URL: str = config('DATABASE_URL')
     DBBaseModel = declarative_base()
 
     class Config:
