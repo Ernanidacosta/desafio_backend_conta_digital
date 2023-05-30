@@ -1,4 +1,4 @@
-256from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String
 from core.configs import settings
 
 
