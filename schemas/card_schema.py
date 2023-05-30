@@ -1,9 +1,9 @@
 from typing import Optional
 
-from pydantic import BaseModel as SCBaseModel
+from pydantic import BaseModel
 
 
-class CardSchema(SCBaseModel):
+class CardSchema(BaseModel):
     id: Optional[int]
     card_id: str
     title: str
