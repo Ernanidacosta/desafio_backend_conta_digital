@@ -12,7 +12,7 @@ class TransferModel(settings.DBBaseModel):
     total_to_transfer = Column(Integer)
     billing_card_id = Column(Integer, ForeignKey('billing_card.id'))
 
-    billing_card = relationship('BillingCardModel', back_populates='transfer')
+    billing_card = relationship('BillingCardModel', back_populates='transfer', lazy='joined')
 
 
 class BillingCardModel(settings.DBBaseModel):
@@ -21,4 +21,4 @@ class BillingCardModel(settings.DBBaseModel):
     id = Column(Integer, primary_key=True)
     card_id = Column(String)
 
-    transfer = relationship('TransferModel', back_populates='billing_card')
+    transfer = relationship('TransferModel', back_populates='billing_card', lazy='joined')
