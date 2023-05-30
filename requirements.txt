@@ -6,3 +6,9 @@ SQLAlchemy==1.4.36
 starlette==0.17.1
 uvicorn==0.17.6
 python-decouple==3.7
+passlib==1.7.4
+python-jose==3.3.0
+pytz==2022.1
+cryptography==37.0.2
+python-multipart==0.0.5
+
