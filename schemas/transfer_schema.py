@@ -12,7 +12,7 @@ class BillingCardSchema(BaseModel):
 
 class TransferSchema(BaseModel):
     id: Optional[int]
-    user_id: str
+    user_id: Optional[str]
     friend_id: str
     total_to_transfer: int
     billing_card: BillingCardSchema = None
