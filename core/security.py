@@ -2,6 +2,7 @@ from passlib.context import CryptContext
 
 CRYPTO = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
+
 def verify_password(password: str, hash_password: str) -> bool:
     """
     Verify if the provided password matches the given hash password.
