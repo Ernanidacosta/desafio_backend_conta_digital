@@ -8,27 +8,25 @@ from sqlalchemy.future import select
 
 from core.deps import get_session, get_current_user
 from core.security import generate_hash_password
-from core.auth import authenticate,  create_token, create_token_access
+from core.auth import authenticate, create_token_access
 from models.person_model import PersonModel
 from schemas.person_schema import PersonSchemaBase, PersonSchemaCreate, PersonSchemaUpdate
 
 router = APIRouter()
 
 
-# POST Person
+# POST Person Signup
 @router.post(
-    '/person',
-    status_code=status.HTTP_201_CREATED,
-    response_model=PersonSchemaBase,
+        '/person/new',
+        status_code=status.HTTP_201_CREATED,
+        response_model=PersonSchemaBase
 )
-async def post_person(
-    person: PersonSchemaCreate, db: AsyncSession = Depends(get_session)
-):
+async def post_person(person: PersonSchemaCreate, db: AsyncSession = Depends(get_session)):
     new_person = PersonModel(
         first_name=person.first_name,
         last_name=person.last_name,
         birthday=person.birthday,
-        password=person.password,
+        password=generate_hash_password(person.password),
         username=person.username,
         user_id=person.user_id,
     )
@@ -36,6 +34,7 @@ async def post_person(
         session.add(new_person)
         await session.commit()
     return new_person
+
 
 
 #PUT Person
