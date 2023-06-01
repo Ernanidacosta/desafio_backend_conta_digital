@@ -1,9 +1,14 @@
-from typing import List
-from fastapi import APIRouter, status, Depends, HTTPException
+from typing import List, Optional, Any
+from fastapi import APIRouter, status, Depends, HTTPException, Response
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.responses import JSONResponse
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+
 from core.deps import get_session, get_current_user
 from core.security import generate_hash_password
+from core.auth import authenticate,  create_token, create_token_access
 from models.person_model import PersonModel
 from schemas.person_schema import PersonSchemaBase, PersonSchemaCreate, PersonSchemaUpdate
 
@@ -112,12 +117,27 @@ async def delete_person_by_id(person_id: int, db: AsyncSession = Depends(get_ses
         result = await session.execute(query)
         person: PersonSchemaBase = result.scalars().unique().one_or_none()
 
-        if result:
+        if person:
             await session.delete(person)
             await session.commit()
-            return
 
+            return Response(status_code=status.HTTP_204_NO_CONTENT)
+        
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f'Person with id {person_id} not found')
+
+
+# POST Login
+@router.post('/login')
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_session)):
+    user = await authenticate(email=form_data.username, password=form_data.password, db=db)
+
+    if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f'Person with id {person_id} not found'
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Incorrect username or password'
         )
+
+    return JSONResponse(content={"access_token": create_token_access(sub=user.id), "token_type": "bearer"}, status_code=status.HTTP_200_OK)

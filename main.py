@@ -3,13 +3,14 @@ from core.configs import settings
 from api.v1.api import api_router
 from criar_tabelas import create_tables
 
-app = FastAPI(title='API using FastAPI and SQL Alchemy')
+app = FastAPI(title='API with FastAPI, SQL Alchemy, Docker')
+
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 @app.get('/')
 async def root():
-    return {'message': "IT'S WORK!!"}
+    return {'message': "IT'S ON!"}
 
 
 if __name__ == '__main__':

@@ -33,7 +33,7 @@ async def authenticate(username: str, password: str, db: AsyncSession) -> Option
             return None
 
 
-def create_token(type_token: str, lifetime: timedelta, subject: str) -> str:
+def _create_token(type_token: str, lifetime: timedelta, sub: str) -> str:
     payload = {}
 
     recife = timezone('America/Recife')
@@ -42,14 +42,15 @@ def create_token(type_token: str, lifetime: timedelta, subject: str) -> str:
     payload['type'] = type_token
     payload['exp'] = expiration
     payload['iat'] = datetime.now(recife)
-    payload['sub'] = str(subject)
+    payload['sub'] = str(sub)
 
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.ALGORITHM)
 
 
-def create_token_access(subscribe: str) -> str:
+def create_token_access(sub: str) -> str:
 
     return _create_token(
-        token_type='access_token',
-        lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        type_token='access_token',
+        lifetime=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+        sub=sub
     )
