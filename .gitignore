@@ -283,3 +283,4 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,pycharm+all
 .editorconfig
 .gitignore
+.venv_win
